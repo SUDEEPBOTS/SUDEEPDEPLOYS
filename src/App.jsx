@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { 
   BotMessageSquare, Music, Server, Terminal, Heart, 
   ShieldCheck, Zap, Headset, Globe, Code, ShieldAlert, Rocket, 
-  ChevronDown, Menu, X, Bell, Gamepad2, Swords, Lock
+  ChevronDown, Menu, X, Bell, Gamepad2, Swords, Lock, Users, Shield, ShoppingCart, BadgeCheck
 } from 'lucide-react';
 import { FaGithub, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 import Background from './components/Background';
@@ -37,8 +37,8 @@ const Navbar = () => {
       <div className="hidden md:flex gap-8 text-sm font-medium text-gray-400">
         <a href="#hero" className="hover:text-white transition-colors">Home</a>
         <a href="#bots" className="hover:text-purple-400 transition-colors">Arsenal</a>
+        <a href="#network" className="hover:text-red-400 transition-colors">Network</a>
         <a href="#intel" className="hover:text-blue-400 transition-colors">Intel Hub</a>
-        <a href="#team" className="hover:text-pink-400 transition-colors">Team</a>
       </div>
 
       <a href="https://t.me/NEX_FUCKR" target="_blank" rel="noreferrer" className="hidden md:flex bg-white/10 hover:bg-purple-600 border border-white/10 hover:border-purple-500 text-white px-4 py-2 rounded-full text-sm font-bold transition-all items-center gap-2">
@@ -85,7 +85,7 @@ const BotCard = ({ name, description, icon: Icon, tag, link, comingSoon }) => (
   </motion.div>
 );
 
-// 3. Network Intel Card (Safety, Updates, Server)
+// 3. Network Intel Card
 const IntelCard = ({ name, description, icon: Icon, link, btnText, color }) => (
   <motion.a 
     href={link} target="_blank" rel="noopener noreferrer"
@@ -120,6 +120,40 @@ const TeamMember = ({ name, role, link, letter, isMod }) => (
           <h3 className="text-lg font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 transition-all">{name}</h3>
           <span className={`${isMod ? 'text-red-500' : 'text-gray-500'} font-bold text-[10px] uppercase tracking-widest`}>{role}</span>
       </div>
+  </motion.a>
+);
+
+// 5. Fighter/Community Box
+const FighterBox = ({ title, desc, icon: Icon, link }) => (
+  <motion.a 
+    href={link} target="_blank" rel="noopener noreferrer"
+    variants={fadeInUp} whileHover={{ y: -5 }} whileTap={{ scale: 0.95 }}
+    className="bg-[#050505]/60 border border-red-500/20 hover:border-red-500/60 p-6 rounded-3xl backdrop-blur-md flex flex-col items-center text-center group transition-all"
+  >
+    <div className="bg-red-500/10 p-4 rounded-full mb-4 group-hover:bg-red-500/20 transition-colors">
+      <Icon className="text-red-500 w-8 h-8" />
+    </div>
+    <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+    <p className="text-gray-400 text-sm">{desc}</p>
+  </motion.a>
+);
+
+// 6. Seller Card
+const SellerCard = ({ name, services, link }) => (
+  <motion.a 
+    href={link} target="_blank" rel="noopener noreferrer"
+    variants={fadeInUp} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.95 }}
+    className="bg-gradient-to-r from-yellow-900/20 to-transparent border border-yellow-500/20 hover:border-yellow-500/50 p-6 rounded-3xl flex items-center justify-between group transition-all"
+  >
+    <div>
+      <h3 className="text-2xl font-bold text-white flex items-center gap-2 mb-1">
+        {name} <BadgeCheck className="text-yellow-500 w-5 h-5" />
+      </h3>
+      <p className="text-gray-400 text-sm font-medium">{services}</p>
+    </div>
+    <div className="bg-yellow-500/10 p-3 rounded-full text-yellow-500 group-hover:bg-yellow-500 group-hover:text-white transition-all">
+      <ShoppingCart size={20} />
+    </div>
   </motion.a>
 );
 
@@ -164,8 +198,8 @@ export default function App() {
             <motion.a href="#bots" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-white text-black hover:bg-gray-200 font-bold px-8 py-4 rounded-2xl flex items-center gap-2 transition-all shadow-[0_0_40px_rgba(255,255,255,0.3)]">
               <Zap size={20}/> Initialize System
             </motion.a>
-            <motion.a href="#intel" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-black/50 backdrop-blur-md border border-white/10 hover:border-white/30 text-white font-bold px-8 py-4 rounded-2xl flex items-center gap-2 transition-all">
-               View Intel
+            <motion.a href="#network" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="bg-black/50 backdrop-blur-md border border-white/10 hover:border-white/30 text-white font-bold px-8 py-4 rounded-2xl flex items-center gap-2 transition-all">
+               View Network
             </motion.a>
           </motion.div>
 
@@ -191,37 +225,56 @@ export default function App() {
             <BotCard name="Session Genii" description="Securely generate Pyrogram and Telethon sessions in milliseconds." icon={Code} tag="Dev Tool" link="http://t.me/SESSIONGENIIBOT" />
             <BotCard name="Wafuuu" description="Your ultimate Waifu, gacha, and entertainment companion for Telegram." icon={BotMessageSquare} tag="Anime" link="http://t.me/Wafuuuubot" />
             <BotCard name="NEX Core" description="Military-grade group automation, antiflood, and raid protection." icon={ShieldAlert} tag="Security" link="https://t.me/NEX_FUCKR" />
-            {/* New Copyright Bot */}
             <BotCard name="Copyright Shield" description="Automated DMCA handling and strict copyright protection for your supergroups." icon={ShieldCheck} tag="Soon" comingSoon={true} />
           </div>
         </motion.section>
 
-        {/* 🧠 NETWORK INTEL (Safety, Updates, Minecraft) */}
+        {/* ⚔️ THE NETWORK (Fighters & Sellers) */}
+        <motion.section id="network" className="py-24 p-6 md:p-12 lg:p-24 max-w-7xl mx-auto border-t border-white/5 bg-black/20" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.1 }}>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            
+            {/* The Vanguard */}
+            <div>
+              <motion.div variants={fadeInUp} className="mb-10">
+                  <span className="text-red-500 font-bold text-xs uppercase tracking-[0.2em] flex items-center gap-2 mb-4"><Swords size={14}/> The Vanguard</span>
+                  <h2 className="text-4xl md:text-5xl font-black text-white">TG Fighters <br/><span className="text-red-500">& Community</span></h2>
+              </motion.div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <FighterBox title="Admins HQ" desc="The core command center." icon={ShieldAlert} link="#" />
+                <FighterBox title="Community" desc="The frontline soldiers." icon={Users} link="#" />
+                <FighterBox title="Group Admins" desc="Network moderators." icon={Shield} link="#" />
+              </div>
+              <p className="text-gray-500 text-xs mt-4 italic">* Admins website linking initialization pending.</p>
+            </div>
+
+            {/* Verified Merchants */}
+            <div>
+              <motion.div variants={fadeInUp} className="mb-10">
+                  <span className="text-yellow-500 font-bold text-xs uppercase tracking-[0.2em] flex items-center gap-2 mb-4"><ShoppingCart size={14}/> Black Market</span>
+                  <h2 className="text-4xl md:text-5xl font-black text-white">Verified <br/><span className="text-yellow-500">Merchants</span></h2>
+              </motion.div>
+              <div className="flex flex-col gap-4">
+                <SellerCard name="𝜹 𝝉 ֟፝𝛜 𝝂 𝝐 ─𑰮" services="Premium VPS Infrastructure" link="#" />
+                <SellerCard name="Sanjit" services="NFTs, Accounts & Banning Services" link="https://t.me/wafbo" />
+              </div>
+            </div>
+
+          </div>
+        </motion.section>
+
+        {/* 🧠 NETWORK INTEL */}
         <motion.section id="intel" className="py-24 p-6 md:p-12 lg:p-24 max-w-7xl mx-auto relative" variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-blue-900/10 blur-[150px] rounded-full -z-10"></div>
           
           <motion.div variants={fadeInUp} className="mb-16">
               <span className="bg-blue-500/10 border border-blue-500/20 text-blue-400 px-4 py-1.5 rounded-full font-bold text-xs uppercase tracking-[0.2em] flex items-center gap-2 w-fit mb-6"><Globe size={14}/> Network Intel</span>
               <h2 className="text-4xl md:text-6xl font-black text-white">Intelligence & <span className="text-blue-500">Infrastructure</span></h2>
-              <p className="text-gray-400 mt-4 text-lg max-w-2xl">Keep your communities safe, stay updated with the latest patches, and connect to our exclusive servers.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <IntelCard 
-              name="Safety HQ" 
-              description="Learn exactly how to protect your Group Chats from raids, spam, and malicious attacks." 
-              icon={ShieldCheck} link="https://safety.yukiapi.site" btnText="Read Guide" color="green" 
-            />
-            <IntelCard 
-              name="NEX Updates" 
-              description="Central log for all bot patches, new features, API endpoints, and system maintenance." 
-              icon={Bell} link="https://update.yukiapi.site" btnText="View Logs" color="purple" 
-            />
-            <IntelCard 
-              name="Minecraft SMP" 
-              description="Join our official Minecraft Server. Survival, economy, and wars. Address: Yukiapi.site | Port: 25565" 
-              icon={Gamepad2} link="minecraft://Yukiapi.site:25565" btnText="Copy IP" color="pink" 
-            />
+            <IntelCard name="Safety HQ" description="Protect your Group Chats from raids, spam, and malicious attacks." icon={ShieldCheck} link="https://safety.yukiapi.site" btnText="Read Guide" color="green" />
+            <IntelCard name="NEX Updates" description="Central log for all bot patches, new features, and system maintenance." icon={Bell} link="https://update.yukiapi.site" btnText="View Logs" color="purple" />
+            <IntelCard name="Minecraft SMP" description="Join our official Minecraft Server. Address: Yukiapi.site | Port: 25565" icon={Gamepad2} link="minecraft://Yukiapi.site:25565" btnText="Copy IP" color="pink" />
           </div>
         </motion.section>
 
@@ -259,6 +312,7 @@ export default function App() {
             <ul className="text-gray-400 text-lg mb-8 space-y-4">
               <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-pink-500 shadow-[0_0_10px_#ec4899]"></span> Project Anime (Web & API)</li>
               <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_#3b82f6]"></span> SMM Panel Infrastructure</li>
+              <li className="flex items-center gap-3"><span className="w-2 h-2 rounded-full bg-purple-500 shadow-[0_0_10px_#a855f7]"></span> Userbots Project</li>
             </ul>
             
             <button className="bg-purple-600/10 text-purple-400 font-bold px-6 py-3 rounded-xl w-fit border border-purple-500/20 cursor-not-allowed">Status: Compiling...</button>
